@@ -1,6 +1,9 @@
 package com.engeto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class Booking {
@@ -28,6 +31,19 @@ public class Booking {
             throw new IllegalArgumentException(
                     "Neplatná rezervace: host není vyplněn! V případě více hostů je třeba vyplnit všechny.");
         }
+    }
+
+    private String formatDate(LocalDate date) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return date.format(dateFormatter);
+    }
+
+    private long getBookingLength() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
+
+    public BigDecimal getTotalPrice() {
+        return getRoom().getPricePerNight().multiply(BigDecimal.valueOf(getBookingLength()));
     }
 
     public List<Guest> getListOfGuests() {
@@ -69,5 +85,18 @@ public class Booking {
 
     public void setBusinessTrip(boolean businessTrip) {
         this.businessTrip = businessTrip;
+    }
+
+    @Override
+    public String toString() {
+        return  "Příjezd: " + formatDate(startDate) +
+                ", Odjezd: " + formatDate(endDate) +
+                ", Na jméno: " + listOfGuests.get(0) +
+                ", Datum narození hlavního hosta: " + formatDate(listOfGuests.get(0).getBirthDate()) +
+                ", Počet hostů: " + listOfGuests.size() +
+                ", Pokoj: " + room.getRoomNumber() +
+                ", Balkón: " + (room.isHasBalcony() ? "Ano" : "Ne") +
+                ", Pracovní pobyt: " + (businessTrip ? "Ano" : "Ne") +
+                ". Celková cena: " + getTotalPrice() + "\n";
     }
 }
