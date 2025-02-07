@@ -36,26 +36,29 @@ public class BookingManager {
 
     public int getNumberOfWorkingBookings() {
         int numberOfWorkingBookings = 0;
-        for (Booking booking: bookings) {
+        for (Booking booking : bookings) {
             if (booking.isBusinessTrip()) {
-            numberOfWorkingBookings += 1;
-        }
+                numberOfWorkingBookings += 1;
             }
+        }
         return numberOfWorkingBookings;
     }
 
     public double getAverageGuests() {
+        if (bookings.isEmpty()) {
+            return 0.0;
+        }
         int guestCount = 0;
-        for (Booking booking: bookings) {
+        for (Booking booking : bookings) {
             guestCount += booking.getListOfGuests().size();
         }
-        return (double) guestCount / bookings.size();
+        return (double) guestCount / bookings.size(); // Výsledek dělení bude typu double
     }
 
     public List<Booking> getTopNHolidayBookings(int limit) {
         List<Booking> holidayBookings = new ArrayList<>();
-        for (Booking booking: bookings) {
-            if (! booking.isBusinessTrip()) {
+        for (Booking booking : bookings) {
+            if (!booking.isBusinessTrip()) {
                 holidayBookings.add(booking);
             }
             if (holidayBookings.size() >= limit) {
