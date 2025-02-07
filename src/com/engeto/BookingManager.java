@@ -76,6 +76,4 @@ public class BookingManager {
         System.out.println("Počet rezervací se dvěma hosty: " + twoGuestBookings);
         System.out.println("Počet rezervací s více než dvěma hosty: " + multipleGuestBookings);
     }
-
-
 }
