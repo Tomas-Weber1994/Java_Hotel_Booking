@@ -77,12 +77,10 @@ public class Main {
         for (int i = 0; i < 10; i ++) {
             LocalDate startDate = LocalDate.of(2023, 8, i * 2 + 1);
             LocalDate endDate = startDate.plusDays(1);
-
             Booking repetitive_reservation = new Booking(
                     guestsForReservation4, room2, startDate, endDate, false);
             listOfReservations.add(repetitive_reservation);
         }
-
         return new BookingManager(listOfReservations);
     }
     //endregion

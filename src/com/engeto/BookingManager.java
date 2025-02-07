@@ -8,14 +8,6 @@ public class BookingManager {
 
     public BookingManager(List<Booking> bookings) {
         this.bookings = bookings;
-        checkIfBookingsNotEmpty();
-    }
-
-    private void checkIfBookingsNotEmpty() {
-        if (bookings == null || bookings.isEmpty() || bookings.contains(null)) {
-            throw new IllegalArgumentException(
-                    "Nebyla vložena žádná rezervace nebo je minimálně jedna z rezervací prázdná.");
-        }
     }
 
     public void addBooking(Booking booking) {
@@ -52,7 +44,7 @@ public class BookingManager {
         for (Booking booking : bookings) {
             guestCount += booking.getListOfGuests().size();
         }
-        return (double) guestCount / bookings.size(); // Výsledek dělení bude typu double
+        return (double) guestCount / bookings.size();
     }
 
     public List<Booking> getTopNHolidayBookings(int limit) {
